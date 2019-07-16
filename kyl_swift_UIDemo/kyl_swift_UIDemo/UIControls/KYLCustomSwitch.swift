@@ -10,9 +10,9 @@ import Foundation
 import UIKit
 
 /// 开关点击事件
-typealias JMSwitchValueChange = (Bool) -> ()
+typealias KYLSwitchValueChange = (Bool) -> ()
 
-struct JMSwitchConfig {
+struct KYLSwitchConfig {
     
     /// 关闭背景颜色
     var offBgColor = UIColor(red: 0 / 255.0, green: 0 / 255.0, blue: 0 / 255.0, alpha: 0.2)
@@ -41,7 +41,7 @@ struct JMSwitchConfig {
     var pointMargin: CGFloat = 5
 }
 
-class JMCustomSwitch: UIControl {
+class KYLCustomSwitch: UIControl {
     
     /// 背景View
     var bgView: UIView!
@@ -50,13 +50,13 @@ class JMCustomSwitch: UIControl {
     var pointView: UIView!
     
     /// 配置
-    var config: JMSwitchConfig!{
+    var config: KYLSwitchConfig!{
         didSet{
             self.updateUI()
         }
     }
     
-    var  valueChangedHandle: JMSwitchValueChange?
+    var  valueChangedHandle: KYLSwitchValueChange?
     
     /// 开关状态
     var isOn: Bool!{
@@ -113,7 +113,7 @@ class JMCustomSwitch: UIControl {
         
         self.isOn = false
         
-        self.config = JMSwitchConfig()
+        self.config = KYLSwitchConfig()
         
         self.addTarget(self, action: #selector(self.stateChanges), for: .touchUpInside)
     }

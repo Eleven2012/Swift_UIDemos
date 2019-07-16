@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    var customSwitch: JMCustomSwitch!
+    var customSwitch: KYLCustomSwitch!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,7 +19,7 @@ class ViewController: UIViewController {
     }
     
     private func testSwitch() {
-        self.customSwitch = JMCustomSwitch()
+        self.customSwitch = KYLCustomSwitch()
         self.view.addSubview(customSwitch)
         customSwitch.center = self.view.center
         customSwitch.bounds = CGRect(x: 0, y: 0, width: 200, height: 60)
@@ -27,7 +27,7 @@ class ViewController: UIViewController {
             print(isOn)
         }
         
-        var config = JMSwitchConfig()
+        var config = KYLSwitchConfig()
         config.offBgColor = UIColor(hex: 0xE9E9F2, alpha: 1.0)
         config.onPointImage = UIImage(named: "icon_switch_turn")
         config.offPointImage = UIImage(named: "icon_switch_angle")

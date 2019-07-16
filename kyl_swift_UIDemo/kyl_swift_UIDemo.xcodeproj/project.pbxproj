@@ -14,7 +14,7 @@
 		A59FB91F22DD6788004727AE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A59FB91D22DD6788004727AE /* LaunchScreen.storyboard */; };
 		A59FB92A22DD6788004727AE /* kyl_swift_UIDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59FB92922DD6788004727AE /* kyl_swift_UIDemoTests.swift */; };
 		A59FB93522DD6788004727AE /* kyl_swift_UIDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59FB93422DD6788004727AE /* kyl_swift_UIDemoUITests.swift */; };
-		A59FB94322DD67A3004727AE /* JMCustomSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59FB94222DD67A3004727AE /* JMCustomSwitch.swift */; };
+		A59FB94322DD67A3004727AE /* KYLCustomSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59FB94222DD67A3004727AE /* KYLCustomSwitch.swift */; };
 		A59FB94722DDB7D2004727AE /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59FB94622DDB7D2004727AE /* UIColor+Extension.swift */; };
 		A59FB94C22DDB9E7004727AE /* KYLHintView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59FB94B22DDB9E7004727AE /* KYLHintView.swift */; };
 		A59FB94F22DDBA44004727AE /* KYLLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59FB94E22DDBA44004727AE /* KYLLayout.swift */; };
@@ -66,7 +66,7 @@
 		A59FB93022DD6788004727AE /* kyl_swift_UIDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = kyl_swift_UIDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A59FB93422DD6788004727AE /* kyl_swift_UIDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = kyl_swift_UIDemoUITests.swift; sourceTree = "<group>"; };
 		A59FB93622DD6788004727AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A59FB94222DD67A3004727AE /* JMCustomSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JMCustomSwitch.swift; sourceTree = "<group>"; };
+		A59FB94222DD67A3004727AE /* KYLCustomSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KYLCustomSwitch.swift; sourceTree = "<group>"; };
 		A59FB94622DDB7D2004727AE /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		A59FB94B22DDB9E7004727AE /* KYLHintView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KYLHintView.swift; sourceTree = "<group>"; };
 		A59FB94E22DDBA44004727AE /* KYLLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KYLLayout.swift; sourceTree = "<group>"; };
@@ -171,7 +171,7 @@
 		A59FB94422DD67AB004727AE /* UIControls */ = {
 			isa = PBXGroup;
 			children = (
-				A59FB94222DD67A3004727AE /* JMCustomSwitch.swift */,
+				A59FB94222DD67A3004727AE /* KYLCustomSwitch.swift */,
 			);
 			path = UIControls;
 			sourceTree = "<group>";
@@ -437,7 +437,7 @@
 				A59FB91722DD6786004727AE /* ViewController.swift in Sources */,
 				A59FB95922DDBCC2004727AE /* UIButton+Extension.swift in Sources */,
 				A59FB95522DDBBB1004727AE /* UIView+Extension.swift in Sources */,
-				A59FB94322DD67A3004727AE /* JMCustomSwitch.swift in Sources */,
+				A59FB94322DD67A3004727AE /* KYLCustomSwitch.swift in Sources */,
 				A59FB95B22DDBCD6004727AE /* UIImageView+Extension.swift in Sources */,
 				A59FB94F22DDBA44004727AE /* KYLLayout.swift in Sources */,
 				A59FB94C22DDB9E7004727AE /* KYLHintView.swift in Sources */,
