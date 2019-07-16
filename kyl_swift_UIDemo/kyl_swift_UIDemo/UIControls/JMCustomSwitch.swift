@@ -24,8 +24,18 @@ struct JMSwitchConfig {
     /// 打开圆点颜色
     var onPointColor = UIColor(red: 158 / 255.0, green: 0 / 255.0, blue: 6 / 255.0, alpha: 1)
     
+    /// 关闭背景图片
+    var offBgImage: UIImage?
+    /// 打开背景图片
+    var onBgImage: UIImage?
+    
+    /// 关闭圆点图片
+    var offPointImage: UIImage?
+    /// 打开圆点图片
+    var onPointImage: UIImage?
+    
     /// 背景View的上下边距
-    var bgMargin: CGFloat = 7
+    var bgMargin: CGFloat = 0
     
     /// 圆点的上下边距
     var pointMargin: CGFloat = 5
@@ -53,21 +63,33 @@ class JMCustomSwitch: UIControl {
         didSet{
             if isOn {
                 var frame: CGRect = self.pointView.frame
-                frame.origin.x = self.bgView.frame.maxX - self.pointView.frame.width
+                frame.origin.x = self.bgView.frame.maxX - self.pointView.frame.width - self.config.pointMargin
                 
                 UIView.animate(withDuration: 0.25, animations: {
                     self.bgView.backgroundColor = self.config.onBgColor
                     self.pointView.backgroundColor = self.config.onPointColor
+                    if let img = self.config.onPointImage {
+                        self.pointView.layer.contents = img.cgImage
+                    }
+                    if let bgImg = self.config.onBgImage {
+                        self.bgView.layer.contents = bgImg.cgImage
+                    }
                     self.pointView.frame = frame
                 })
             } else {
                 
                 var frame: CGRect = self.pointView.frame
-                frame.origin.x = self.bgView.frame.minX
+                frame.origin.x = self.bgView.frame.minX + self.config.pointMargin
                 
                 UIView.animate(withDuration: 0.25, animations: {
                     self.bgView.backgroundColor = self.config.offBgColor
                     self.pointView.backgroundColor = self.config.offPointColor
+                    if let img = self.config.offPointImage {
+                        self.pointView.layer.contents = img.cgImage
+                    }
+                    if let bgImg = self.config.offBgImage {
+                        self.bgView.layer.contents = bgImg.cgImage
+                    }
                     self.pointView.frame = frame
                 })
             }
@@ -103,7 +125,7 @@ class JMCustomSwitch: UIControl {
         self.bgView.frame = CGRect(x: 0, y: self.config.bgMargin, width: frame.width, height: frame.height - self.config.bgMargin * 2)
         
         let pointWidth = frame.height - self.config.pointMargin * 2
-        self.pointView.frame = CGRect(x: self.bgView.frame.minX, y: self.config.pointMargin, width: pointWidth, height: pointWidth)
+        self.pointView.frame = CGRect(x: self.bgView.frame.minX + self.config.pointMargin, y: self.config.pointMargin, width: pointWidth, height: pointWidth)
         
         self.updateUI()
     }
@@ -128,5 +150,11 @@ class JMCustomSwitch: UIControl {
         self.bgView.backgroundColor = self.config.offBgColor
         self.pointView.layer.cornerRadius = (self.frame.height - self.config.pointMargin * 2) * 0.5
         self.pointView.backgroundColor = self.config.offPointColor
+        if let img = self.config.offPointImage {
+            pointView.layer.contents = img.cgImage
+        }
+        if let bgImg = self.config.offBgImage {
+            bgView.layer.contents = bgImg.cgImage
+        }
     }
 }

@@ -28,7 +28,9 @@ class ViewController: UIViewController {
         }
         
         var config = JMSwitchConfig()
-        config.offBgColor = UIColor.red
+        config.offBgColor = UIColor(hex: 0xE9E9F2, alpha: 1.0)
+        config.onPointImage = UIImage(named: "icon_switch_turn")
+        config.offPointImage = UIImage(named: "icon_switch_angle")
         customSwitch.config = config
     }
 
