@@ -1,0 +1,6 @@
+framework module Pods_kyl_swift_UIDemo {
+  umbrella header "Pods-kyl_swift_UIDemo-umbrella.h"
+
+  export *
+  module * { export * }
+}
