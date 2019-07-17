@@ -52,47 +52,16 @@ class KYLCustomSwitch: UIControl {
     /// 配置
     var config: KYLSwitchConfig!{
         didSet{
-            self.updateUI()
+            updateUI()
         }
     }
     
     var  valueChangedHandle: KYLSwitchValueChange?
     
     /// 开关状态
-    var isOn: Bool!{
+    var isOn: Bool = false {
         didSet{
-            if isOn {
-                var frame: CGRect = self.pointView.frame
-                frame.origin.x = self.bgView.frame.maxX - self.pointView.frame.width - self.config.pointMargin
-                
-                UIView.animate(withDuration: 0.25, animations: {
-                    self.bgView.backgroundColor = self.config.onBgColor
-                    self.pointView.backgroundColor = self.config.onPointColor
-                    if let img = self.config.onPointImage {
-                        self.pointView.layer.contents = img.cgImage
-                    }
-                    if let bgImg = self.config.onBgImage {
-                        self.bgView.layer.contents = bgImg.cgImage
-                    }
-                    self.pointView.frame = frame
-                })
-            } else {
-                
-                var frame: CGRect = self.pointView.frame
-                frame.origin.x = self.bgView.frame.minX + self.config.pointMargin
-                
-                UIView.animate(withDuration: 0.25, animations: {
-                    self.bgView.backgroundColor = self.config.offBgColor
-                    self.pointView.backgroundColor = self.config.offPointColor
-                    if let img = self.config.offPointImage {
-                        self.pointView.layer.contents = img.cgImage
-                    }
-                    if let bgImg = self.config.offBgImage {
-                        self.bgView.layer.contents = bgImg.cgImage
-                    }
-                    self.pointView.frame = frame
-                })
-            }
+            updateUI()
         }
     }
     
@@ -100,34 +69,27 @@ class KYLCustomSwitch: UIControl {
         super.init(frame: frame)
         
         // 底部背景
-        self.bgView = UIView()
-        self.addSubview(self.bgView)
-        self.bgView.layer.masksToBounds = true
-        self.bgView.isUserInteractionEnabled = false
+        bgView = UIView()
+        addSubview(bgView)
+        bgView.layer.masksToBounds = true
+        bgView.isUserInteractionEnabled = false
         
         // 开关按钮
-        self.pointView = UIView()
-        self.addSubview(self.pointView)
-        self.pointView.layer.masksToBounds = true
-        self.pointView.isUserInteractionEnabled = false
+        pointView = UIView()
+        addSubview(pointView)
+        pointView.layer.masksToBounds = true
+        pointView.isUserInteractionEnabled = false
+        config = KYLSwitchConfig()
         
-        self.isOn = false
-        
-        self.config = KYLSwitchConfig()
-        
-        self.addTarget(self, action: #selector(self.stateChanges), for: .touchUpInside)
+        addTarget(self, action: #selector(stateChanges), for: .touchUpInside)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
         // 布局
-        self.bgView.frame = CGRect(x: 0, y: self.config.bgMargin, width: frame.width, height: frame.height - self.config.bgMargin * 2)
+        bgView.frame = CGRect(x: 0, y: config.bgMargin, width: frame.width, height: frame.height - config.bgMargin * 2)
         
-        let pointWidth = frame.height - self.config.pointMargin * 2
-        self.pointView.frame = CGRect(x: self.bgView.frame.minX + self.config.pointMargin, y: self.config.pointMargin, width: pointWidth, height: pointWidth)
-        
-        self.updateUI()
+        updateUI()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -136,25 +98,84 @@ class KYLCustomSwitch: UIControl {
     
     // MARK: - 响应事件
     @objc func stateChanges() {
-        
-        self.isOn = !self.isOn
-        if self.valueChangedHandle != nil {
-            self.valueChangedHandle!(self.isOn)
-        }
+        isOn ? changeToOffAnimation() : changeToOnAnimation()
+        isOn = !isOn
+        valueChangedHandle?(isOn)
     }
     
+}
+
+// MARK: - UI 逻辑
+extension KYLCustomSwitch {
     /// 设置圆角和背景色
     func updateUI() {
         
-        self.bgView.layer.cornerRadius = (self.frame.height - self.config.bgMargin * 2) * 0.5
-        self.bgView.backgroundColor = self.config.offBgColor
-        self.pointView.layer.cornerRadius = (self.frame.height - self.config.pointMargin * 2) * 0.5
-        self.pointView.backgroundColor = self.config.offPointColor
-        if let img = self.config.offPointImage {
+        bgView.layer.cornerRadius = (frame.height - config.bgMargin * 2) * 0.5
+        bgView.backgroundColor = config.offBgColor
+        pointView.layer.cornerRadius = (frame.height - config.pointMargin * 2) * 0.5
+        pointView.backgroundColor = config.offPointColor
+        
+        let pointWidth = frame.height - config.pointMargin * 2
+        if isOn {
+            pointView.frame = CGRect(x: bgView.frame.maxX - pointView.frame.width - config.pointMargin, y: config.pointMargin, width: pointWidth, height: pointWidth)
+            changeToOnPointViewStyle()
+        }
+        else {
+            pointView.frame = CGRect(x: bgView.frame.minX + config.pointMargin, y: config.pointMargin, width: pointWidth, height: pointWidth)
+            changeToOffPointViewStyle()
+        }
+    }
+    
+    private func changeToOnAnimation() {
+        var frame: CGRect = pointView.frame
+        frame.origin.x = bgView.frame.minX + config.pointMargin
+        
+        UIView.animate(withDuration: 0.25, animations: { [weak self] in
+            guard let strongSelf = self else {
+                return
+            }
+            strongSelf.pointView.frame = frame
+            strongSelf.changeToOffPointViewStyle()
+        })
+    }
+    
+    
+    private func changeToOffAnimation() {
+        var frame: CGRect = pointView.frame
+        frame.origin.x = bgView.frame.maxX - pointView.frame.width - config.pointMargin
+        
+        UIView.animate(withDuration: 0.25, animations: { [weak self] in
+            guard let strongSelf = self else {
+                return
+            }
+            strongSelf.pointView.frame = frame
+            strongSelf.changeToOnPointViewStyle()
+        })
+    }
+    
+    private func changeToOnPointViewStyle() {
+        bgView.backgroundColor = config.onBgColor
+        pointView.backgroundColor = config.onPointColor
+        if let img = config.onPointImage {
             pointView.layer.contents = img.cgImage
         }
-        if let bgImg = self.config.offBgImage {
+        if let bgImg = config.onBgImage {
+            bgView.layer.contents = bgImg.cgImage
+        }
+    }
+    
+    private func changeToOffPointViewStyle() {
+        bgView.backgroundColor = config.offBgColor
+        self.pointView.backgroundColor = config.offPointColor
+        if let img = config.offPointImage {
+            pointView.layer.contents = img.cgImage
+        }
+        if let bgImg = config.offBgImage {
             bgView.layer.contents = bgImg.cgImage
         }
     }
 }
+
+//测试1
+
+//测试2
