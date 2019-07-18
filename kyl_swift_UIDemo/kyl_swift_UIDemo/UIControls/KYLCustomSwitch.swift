@@ -1,6 +1,6 @@
 //
-//  JMCustomSwitch.swift
-//  Jimu
+//  KYLCustomSwitch.swift
+//  
 //
 //  Created by yulu kong on 2019/7/16.
 //  Copyright © 2019 ubt. All rights reserved.
